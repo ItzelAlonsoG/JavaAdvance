@@ -2,7 +2,17 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ *<h1>Book</h1>
+ * Es una clase pública que tiene como propósito contruir los objetos de tipo Book e implementa métodos de
+ * la interfaz {@link IVisualizable}.
+ * <br>
+ * Con el cual podemos márcar que ya hemos leído un libro con el método {@code view}.
+ *
+ * @author Itzel Alonso
+ * @since  2021
+ * @version 1.1
+ * */
 public class Book extends Publication implements IVisualizable {
 	private int id;
 	private String isbn;
@@ -61,7 +71,10 @@ public class Book extends Publication implements IVisualizable {
 	public void setTimeReaded(int timeReaded) {
 		this.timeReaded = timeReaded;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -76,6 +89,9 @@ public class Book extends Publication implements IVisualizable {
 		return  detailBook;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * */
 
 	@Override
 	public Date startToSee(Date dateI) {
@@ -83,6 +99,9 @@ public class Book extends Publication implements IVisualizable {
 		return dateI;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * */
 
 	@Override
 	public void stopToSee(Date dateI, Date dateF) {

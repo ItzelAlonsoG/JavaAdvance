@@ -1,5 +1,19 @@
 package model;
 
+/**
+ * <h1>Film</h1>
+ * FIlm es una clase padre abstracta
+ * <br>
+ * Esta clase es la clase base de la familia Films, como es abstracta no pueden crearse instancias.
+ * Con tiene el método abstracto
+ * {@code view()}  que es obligatorio implementar para todo aquel que pertenezca a la familia.
+ *
+ *
+ * @author Itzel Alonso
+ * @version  1.1
+ * @since  2021
+ *
+ * */
 public abstract class Film {
 	
 	private String title;
@@ -67,6 +81,9 @@ public abstract class Film {
 		this.viewed = viewed;
 	}
 
+	/**
+	 * {@code view()} es un método abstracto obligatorio de implementar
+	 * */
 	public abstract void view ();
 
 

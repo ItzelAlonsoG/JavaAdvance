@@ -2,6 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * <h1>Serie</h1>
+ * Es una clase pública que hereda a la clase padre {@link Film}
+ * <br>
+ * Tiene como propósito el poder crear objetos de Series.
+ *
+ *  @author Itzel Alonso
+ *  @version  1.1
+ *  @since  2021
+ * */
+
 public class Serie extends Film {
 	
 	private int id;
@@ -36,7 +47,10 @@ public class Serie extends Film {
 	public void setChapters(ArrayList<Chapter> chapters) {
 		this.chapters = chapters;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -61,8 +75,12 @@ public class Serie extends Film {
 		return series;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public void view() {
+		setViewed(true);
 
 	}
 }

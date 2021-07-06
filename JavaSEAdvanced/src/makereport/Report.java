@@ -7,6 +7,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+/**
+ * <h1>Report</h1>
+ * Libraría que permite generar reportes a traves de archivos en cualquier formato.
+ * <br>
+ * Utiliza el método {@code makeReport}
+ *
+ * @author  Itzel Alonso
+ * @since 2021
+ * @version 1.1
+ * */
+
 public class Report {
 
     private String nameFile;

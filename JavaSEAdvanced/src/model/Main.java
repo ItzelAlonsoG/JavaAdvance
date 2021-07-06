@@ -9,14 +9,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * <h1>Amazon Viewer</h1>
+ * Amazon Viewer es un programa que permite visualizar Movies, Series con sus respectivos Chapters,
+ * Books y Magazines. Te permite generar reportes generales y con fecha del dóa.
+ * <p>
+ * Existen algunas reglas como que todos los elementos pueden ser visualizados o leídos a excepción
+ * de las Magazines, estás solo pueden ser vistas a modo de exposición sin ser leídos.
+ *
+ * @author Itzel Alonso
+ * @version 1.1
+ * @since 2021
+ *
+ *
+ * */
 
 
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		//Movie movie = new Movie("","","",1,(short)3);
 		showMenu();
+
+		//Chapter chapter = new Chapter("","","",1,(short)1997,2,new Serie("","","",1,1));
 
 	}
 	

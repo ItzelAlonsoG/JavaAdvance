@@ -1,6 +1,25 @@
+
+
 package model;
 
 import java.util.ArrayList;
+
+/**
+ *<h1>Chapter</h1>
+ * Es una clase pública que tiene como propósito contruir los capitulos de la clase {@link Serie} y hereda de {@link Movie}
+ *
+ *
+ *
+ * <br>
+ * Con el cual podemos validar con el método {@code view()} si  la serie ha sido completada si ya hemos visto
+ * todos los capítulos de la serie.
+ *
+ * @author Itzel Alonso
+ * @since  2021
+ * @version 1.1
+ *
+ * @see Film
+ * */
 
 public class Chapter extends Movie {
 	
@@ -15,6 +34,9 @@ public class Chapter extends Movie {
 		this.setSessionNumber(sessionNumber);
 		this.setSerie(serie);
 	}
+	/**
+	 * {@inheritDoc}
+	 * */
 	
 	@Override
 	public int getId() {
@@ -38,6 +60,9 @@ public class Chapter extends Movie {
 	public void setSerie(Serie serie) {
 		this.serie = serie;
 	}
+	/**
+	 * {@inheritDoc}
+	 * */
 
 	@Override
 	public String toString() {
@@ -61,7 +86,9 @@ public class Chapter extends Movie {
 		
 		return chapters;
 	}
-
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public void view() {
 		super.view();
@@ -74,7 +101,7 @@ public class Chapter extends Movie {
 		}
 
 		if(chapterViewedCounter == chapters.size()){
-			getSerie().setViewed(true);
+			getSerie().view();
 		}
 	}
 }

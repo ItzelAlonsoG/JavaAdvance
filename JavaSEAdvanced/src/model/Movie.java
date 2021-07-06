@@ -2,7 +2,15 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * <h1>Movie</h1>
+ * Hereda los métodos de la super clase {@link Film}
+ * Implementa de {@link IVisualizable}
+ *
+ *  @author Itzel Alonso
+ *  @since  2021
+ *  @version 1.1
+ * */
 public class Movie extends Film implements IVisualizable {
 	
 	private int id;
@@ -37,13 +45,17 @@ public class Movie extends Film implements IVisualizable {
 				"\n Creator: " + getCreator() +
 				"\n Duration: " + getDuration();
 	}
-
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public Date startToSee(Date dateI) {
 		// TODO Auto-generated method stub
 		return dateI;
 	}
-
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public void stopToSee(Date dateI, Date dateF) {
 		// TODO Auto-generated method stub
@@ -67,6 +79,9 @@ public class Movie extends Film implements IVisualizable {
 		return movies;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public void view() {
 		setViewed(true);
