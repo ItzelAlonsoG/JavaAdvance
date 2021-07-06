@@ -1,5 +1,8 @@
 package model;
 
+import AmazonViewerDAO.MovieDAO;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 /**
@@ -11,11 +14,14 @@ import java.util.Date;
  *  @since  2021
  *  @version 1.1
  * */
-public class Movie extends Film implements IVisualizable {
+public class Movie extends Film implements IVisualizable, MovieDAO {
 	
 	private int id;
 	private int timeViewed;
-	
+
+	public Movie(){
+
+	}
 	
 	public Movie(String title, String genre, String creator, int duration, short year) {
 		super(title, genre, creator, duration);
@@ -25,6 +31,10 @@ public class Movie extends Film implements IVisualizable {
 	
 	public int getId() {
 		return id;
+	}
+
+	public void setId(Integer integer) {
+		this.id = id;
 	}
 	
 	
@@ -69,14 +79,11 @@ public class Movie extends Film implements IVisualizable {
 		
 	}
 	
-	public static ArrayList<Movie> makeMoviesList() {
-		ArrayList<Movie> movies = new ArrayList();
+	public static ArrayList<Movie> makeMoviesList() throws SQLException {
+		Movie movie = new Movie();
+
 		
-		for (int i = 1; i <= 5; i++) {
-			movies.add(new Movie("Movie " + i, "Genero " + i, "Creador " + i, 120+i, (short)(2017+i)));
-		}
-		
-		return movies;
+		return movie.read();
 	}
 
 	/**
