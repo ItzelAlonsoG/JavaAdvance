@@ -288,7 +288,7 @@ public class Main {
 		movies.stream().filter(m -> m.getIsViewed()).forEach(m -> finalContentReport.append(m.toString() + "\n"));
 
 		//Consumer<Serie> seriesEach = s ->finalContentReport.append(s.toString() + "\n");
-		
+
 		Consumer<Serie> seriesEach = s ->{
 			ArrayList<Chapter> chapters = s.getChapters();
 			chapters.stream().filter(c -> c.getIsViewed()).forEach(c -> finalContentReport.append(c.toString() + "\n"));
