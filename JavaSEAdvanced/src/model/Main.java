@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 /**
  * <h1>Amazon Viewer</h1>
@@ -286,31 +287,16 @@ public class Main {
 
 		movies.stream().filter(m -> m.getIsViewed()).forEach(m -> finalContentReport.append(m.toString() + "\n"));
 
-		/*for (Movie movie : movies) {
-			if (movie.getIsViewed()) {
-				contentReport += movie.toString() + "\n";
-				
-			}
-		}¨
+		//Consumer<Serie> seriesEach = s ->finalContentReport.append(s.toString() + "\n");
 		
-		for (Serie serie : series) {
-			ArrayList<Chapter> chapters = serie.getChapters();
-			for (Chapter chapter : chapters) {
-				if (chapter.getIsViewed()) {
-					contentReport += chapter.toString() + "\n";
-					
-				}
-			}	
-		}
-		
-		
-		for (Book book : books) {
-			if (book.getIsReaded()) {
-				contentReport += book.toString() + "\n";
-				
-			}
-		}
-		*/
+		Consumer<Serie> seriesEach = s ->{
+			ArrayList<Chapter> chapters = s.getChapters();
+			chapters.stream().filter(c -> c.getIsViewed()).forEach(c -> finalContentReport.append(c.toString() + "\n"));
+		};
+		series.stream().forEach(seriesEach);
+
+
+		books.stream().filter(b -> b.getIsReaded()).forEach(b -> finalContentReport.append(b.toString() + "\n"));
 
 		report.setContent(contentReport.toString());
 		report.makeReport();

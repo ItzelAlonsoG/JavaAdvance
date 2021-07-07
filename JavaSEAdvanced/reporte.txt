@@ -19,3 +19,9 @@
  Year: 2017
  Creator: Guillermo del Toro
  Duration: 123
+
+ :: BOOK ::
+ Title: Book 1
+ Editorial: editorial 1
+ Edition Date: Wed Jul 07 01:26:52 CDT 2021
+ Authors: 	author 0 	author 1 	author 2 
