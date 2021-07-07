@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.SQLException;
+
 /**
  * <h1>Film</h1>
  * FIlm es una clase padre abstracta
@@ -84,7 +86,7 @@ public abstract class Film {
 	/**
 	 * {@code view()} es un método abstracto obligatorio de implementar
 	 * */
-	public abstract void view ();
+	public abstract void view () throws SQLException;
 
 
 }

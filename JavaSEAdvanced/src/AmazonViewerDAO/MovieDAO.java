@@ -3,11 +3,12 @@ package AmazonViewerDAO;
 import AmazonViewerDB.IDBConnection;
 import model.Movie;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import static AmazonViewerDB.DataBase.*;
 
 /**
@@ -31,7 +32,31 @@ import static AmazonViewerDB.DataBase.*;
 
 public interface MovieDAO extends IDBConnection {
 
-    default Movie seMovieViewed(Movie movie){
+    /**
+     * Es utilizado para insertar dentro de la tabla viewed de la bd si un objeto movie ya fue visto.
+     * */
+
+    default Movie setMovieViewed(Movie movie) throws SQLException {
+
+    try (Connection connection = connectoToDB()){
+        //Statement es utilizado para insertar y hacer update en las bd de datos.
+        DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        Statement statement = connection.createStatement();
+        System.out.println("ID MOVIE : " + movie.getId()) ;
+        String query = "INSERT INTO " + TVIEWED +
+                " ("+TVIEWED_ID_MATERIAL+", "+TVIEWED_ID_ELEMENT+", "+TVIEWED_ID_USER+", "+TVIEWED_DATE+")" +
+                " VALUES('"+ID_TMATERIAL[0]+"', '"+ movie.getId()+"', '"+TUSER_IDUSUARIO+"', '"  + dateformat.format(new Date()) + "' )";
+        System.out.println(query);
+        // Valida la cantidad de rows afectados
+        if(statement.executeUpdate(query) > 0){
+            System.out.println("Se marcó en Visto");
+        }
+
+    }catch(SQLException e){
+        e.printStackTrace();
+    }
         return movie;
     }
 
@@ -39,6 +64,8 @@ public interface MovieDAO extends IDBConnection {
         ArrayList<Movie> movies = new ArrayList<>();
         try (Connection conection = connectoToDB()){
             String query = "SELECT * FROM " + TMOVIE;
+
+            //PrepareStatement es utilizado para consultar las bd de datos.
             PreparedStatement preparedStatement = conection.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
@@ -66,6 +93,7 @@ public interface MovieDAO extends IDBConnection {
 
     private boolean getMoviewViewed(PreparedStatement preparedStatement, Connection connection, int id_movie) throws SQLException {
         System.out.println(id_movie + " IDENTIFICADOR MOVIE");
+
         boolean viewed = false;
 
         String query = "SELECT * FROM " + TVIEWED +
@@ -73,7 +101,7 @@ public interface MovieDAO extends IDBConnection {
                 " AND " + TVIEWED_ID_ELEMENT + " = ?" +
                 " AND " + TVIEWED_ID_USER + " = ?" ;
 
-        System.out.println(query);
+
         ResultSet rs = null;
         try
         {
@@ -83,7 +111,9 @@ public interface MovieDAO extends IDBConnection {
             preparedStatement.setInt(3,TUSER_IDUSUARIO);
             rs = preparedStatement.executeQuery();
             viewed = rs.next();
-            System.out.println("resultado: " + viewed);
+
+
+
 
         } catch(Exception e){
 
@@ -94,6 +124,43 @@ public interface MovieDAO extends IDBConnection {
 
 
         return viewed;
+    }
+
+    default ArrayList<Movie> getMoviesViewedByDate(Date date) throws SQLException {
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        String dateformat = new SimpleDateFormat("yyyy-MM-dd").format(date);
+
+        try(Connection connection = connectoToDB()){
+            String query = "SELECT * FROM " + TMOVIE + " AS m INNER JOIN " + TVIEWED +
+                    " AS v ON m." + TMOVIE_ID + " = v." + TVIEWED_ID_ELEMENT +
+                    " WHERE v." + TVIEWED_ID_MATERIAL + " = " + ID_TMATERIAL[0] +
+                    " AND v." + TVIEWED_ID_USER + " = " + TUSER_IDUSUARIO +
+                    " AND " + TVIEWED_DATE + " = '" + dateformat + "';";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                Movie movie = new Movie(
+                rs.getString("m."+TMOVIE_TITLE),
+                rs.getString("m."+TMOVIE_GENRE),
+                rs.getString("m."+ TMOVIE_CREATOR),
+                Integer.valueOf(rs.getString("m."+ TMOVIE_DURATION)),
+                Short.valueOf(rs.getString("m." + TMOVIE_YEAR)));
+
+                movie.setId(rs.getInt("m."+TMOVIE_ID));
+                movie.setViewed(true);
+                movies.add(movie);
+            }
+            System.out.println(movies.size());
+
+            preparedStatement.close();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return movies;
     }
 
 }

@@ -5,6 +5,7 @@ import util.*;
 import makereport.*;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +29,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException, ParseException {
 		// TODO Auto-generated method stub
 		//Movie movie = new Movie("","","",1,(short)3);
 		showMenu();
@@ -37,7 +38,7 @@ public class Main {
 
 	}
 	
-	public static void showMenu() {
+	public static void showMenu() throws SQLException, ParseException {
 		int exit = 0;
 		do {
 			
@@ -54,6 +55,7 @@ public class Main {
 			
 			//Leer la respuesta del usuario
 			int response = AmazonUtil.validateUserResponseMenu(0, 6);
+			Scanner sc = new Scanner(System.in);
 
 			switch (response) {
 				case 0:
@@ -78,6 +80,13 @@ public class Main {
 					break;
 				case 6:
 					//Date date = new Date();
+					try{
+						System.out.println("Digite la fecha del reporte a enerar en formato yyyy-MM-dd: ");
+						Date dateE = new SimpleDateFormat("yyyy-MM-dd").parse(sc.nextLine());
+						makeReport(dateE);
+					}catch(ParseException e){
+						e.printStackTrace();
+					}
 					makeReport(new Date());
 					exit = 1;
 					break;
@@ -94,7 +103,7 @@ public class Main {
 		}while(exit != 0);
 	}
 	
-	static ArrayList<Movie> movies;
+	static ArrayList<Movie> movies = new ArrayList<>();
 
 	static {
 		try {
@@ -104,7 +113,8 @@ public class Main {
 		}
 	}
 
-	public static void showMovies() {
+	public static void showMovies() throws SQLException, ParseException {
+		movies = Movie.makeMoviesList();
 		int exit = 1;
 		
 		do {
@@ -138,7 +148,7 @@ public class Main {
 		
 	}
 	static ArrayList<Serie> series = Serie.makeSeriesList();
-	public static void showSeries() {
+	public static void showSeries() throws SQLException, ParseException {
 		int exit = 1;
 		
 		do {
@@ -169,7 +179,7 @@ public class Main {
 		}while(exit !=0);
 	}
 	
-	public static void showChapters(ArrayList<Chapter> chaptersOfSerieSelected) {
+	public static void showChapters(ArrayList<Chapter> chaptersOfSerieSelected) throws SQLException {
 		int exit = 1;
 		
 		do {
@@ -201,7 +211,7 @@ public class Main {
 	}
 	
 	static ArrayList<Book> books= Book.makeBookList();
-	public static void showBooks() {
+	public static void showBooks() throws SQLException, ParseException {
 		int exit = 1;
 		
 		do {
@@ -232,7 +242,7 @@ public class Main {
 		}while(exit !=0);
 	}
 	
-	public static void showMagazines() {
+	public static void showMagazines() throws SQLException, ParseException {
 		 ArrayList<Magazine> magazines = Magazine.makeMagazineList();
 		int exit = 0;
 		do {
@@ -293,12 +303,12 @@ public class Main {
 		}
 
 		report.setContent(contentReport);
-		report.makeReport();
+		//report.makeReport();
 		System.out.println("Reporte Generado");
 		System.out.println();
 	}
 	
-	public static void makeReport(Date date) {
+	public static void makeReport(Date date) throws SQLException {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-h-m-s-S");
 		String dateString = df.format(date);
 		Report report = new Report();
@@ -311,8 +321,11 @@ public class Main {
 		SimpleDateFormat dfNameDays = new SimpleDateFormat("E, W MMM Y");
 		dateString = dfNameDays.format(date);
 		String contentReport = "Date: " + dateString + "\n\n\n";
-		
-		for (Movie movie : movies) {
+
+		ArrayList<Movie> movies_Date = new ArrayList<>();
+		movies_Date = Movie.makeMoviesListDate(date);
+
+		for (Movie movie : movies_Date) {
 			if (movie.getIsViewed()) {
 				contentReport += movie.toString() + "\n";
 				
@@ -338,7 +351,7 @@ public class Main {
 		report.setContent(contentReport);
 		report.makeReport();
 		
-		System.out.println("Reporte Generado");
+		System.out.println("Reporte Generado cool");
 		System.out.println();
 	}
 	

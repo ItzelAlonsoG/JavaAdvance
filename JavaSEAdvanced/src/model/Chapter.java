@@ -2,6 +2,7 @@
 
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -90,7 +91,7 @@ public class Chapter extends Movie {
 	 * {@inheritDoc}
 	 * */
 	@Override
-	public void view() {
+	public void view() throws SQLException {
 		super.view();
 		ArrayList<Chapter> chapters = getSerie().getChapters();
 		int chapterViewedCounter = 0;

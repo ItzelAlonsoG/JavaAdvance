@@ -13,7 +13,7 @@ package AmazonViewerDB;
  * */
 
 public class DataBase {
-    
+
     public static final String URL = "jdbc:mysql://localhost:3306/";
     public static final String DB = "amazonviewer";
     public static final String USER = "amazonviewer";
@@ -39,10 +39,10 @@ public class DataBase {
     public static final String TUSER_TABLE = "table";
 
     public static final String TVIEWED = "viewed";
-    public static final String TVIEWED_ID = "id";
+    //public static final String TVIEWED_ID = "id";
     public static final String TVIEWED_ID_MATERIAL = "id_material";
     public static final String TVIEWED_ID_ELEMENT = "id_element";
     public static final String TVIEWED_ID_USER = "id_user";
-
+    public static final String TVIEWED_DATE= "date_viewed";
 
 }

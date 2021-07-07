@@ -1,0 +1,17 @@
+Date: mar., 2 jul 2021
+
+
+
+ :: MOVIE ::
+ Title: Coco
+ Genero: Animación
+ Year: 2017
+ Creator: Pixart
+ Duration: 120
+
+ :: MOVIE ::
+ Title: Titanic
+ Genero: Drama
+ Year: 1997
+ Creator: James Cameron
+ Duration: 195

@@ -3,6 +3,8 @@ package model;
 import AmazonViewerDAO.MovieDAO;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 /**
@@ -18,6 +20,9 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 	
 	private int id;
 	private int timeViewed;
+	private Date dateViewed;
+
+
 
 	public Movie(){
 
@@ -28,23 +33,33 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 		setYear(year);
 	}
 
-	
+
+
+
 	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer integer) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
+
 	public int getTimeViewed() {
 		return timeViewed;
 	}
 	public void setTimeViewed(int timeViewed) {
 		this.timeViewed = timeViewed;
 	}
-	
+
+	public Date getDateViewed() {
+		return dateViewed;
+	}
+
+	public void setDateViewed(Date dateViewed) {
+
+		this.dateViewed = dateViewed;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -53,7 +68,8 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 				"\n Genero: " + getGenre() + 
 				"\n Year: " + getYear() + 
 				"\n Creator: " + getCreator() +
-				"\n Duration: " + getDuration();
+				"\n Duration: " + getDuration() ;
+	//	        "\n Date see: " + getDateViewed();
 	}
 	/**
 	 * {@inheritDoc}
@@ -61,6 +77,7 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 	@Override
 	public Date startToSee(Date dateI) {
 		// TODO Auto-generated method stub
+		setDateViewed(dateI);
 		return dateI;
 	}
 	/**
@@ -90,9 +107,20 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 	 * {@inheritDoc}
 	 * */
 	@Override
-	public void view() {
+	public void view() throws SQLException {
+
 		setViewed(true);
 		Date dateI = startToSee(new Date());
+		//setDateViewed(dateI);
+		Movie movie = new Movie();
+		movie.setMovieViewed(this);
+		System.out.println(this);
+
+
+
+		System.out.println("La vi en el día y hora: " + dateI);
+
+
 
 		for (int i = 0; i < 100000; i++) {
 			System.out.println("..........");
@@ -103,6 +131,11 @@ public class Movie extends Film implements IVisualizable, MovieDAO {
 		System.out.println();
 		System.out.println("Viste: " + toString());
 		System.out.println("Por: " + getTimeViewed() + " milisegundos");
+	}
+
+	public static ArrayList<Movie> makeMoviesListDate (Date date) throws SQLException {
+		Movie movie = new Movie();
+		return movie.getMoviesViewedByDate(date);
 	}
 }
 
