@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <h1>Amazon Viewer</h1>
@@ -121,11 +122,16 @@ public class Main {
 			System.out.println();
 			System.out.println(":: MOVIES ::");
 			System.out.println();
-			
-			for (int i = 0; i < movies.size(); i++) { //1. Movie 1
+
+			AtomicInteger atomicInteger = new AtomicInteger(1);
+			//no podemos cambiar valores de variables e meramente declaratico
+			movies.forEach(m -> System.out.println(atomicInteger.getAndIncrement() +". "+ m.getTitle() + " Visto: " + m.isViewed()));
+			//movies.forEach(System.out::print);
+
+			/*for (int i = 0; i < movies.size(); i++) { //1. Movie 1
 				System.out.println(i+1 + ". " + movies.get(i).getTitle() + " Visto: " + movies.get(i).isViewed());
 			}
-			
+			*/
 			System.out.println("0. Regresar al Menu");
 			System.out.println();
 			
@@ -275,14 +281,17 @@ public class Main {
 		report.setNameFile("reporte");
 		report.setExtension("txt");
 		report.setTitle(":: VISTOS ::");
-		String contentReport = "";
-		
-		for (Movie movie : movies) {
+		StringBuilder contentReport = new StringBuilder();
+		StringBuilder finalContentReport = contentReport;
+
+		movies.stream().filter(m -> m.getIsViewed()).forEach(m -> finalContentReport.append(m.toString() + "\n"));
+
+		/*for (Movie movie : movies) {
 			if (movie.getIsViewed()) {
 				contentReport += movie.toString() + "\n";
 				
 			}
-		}
+		}¨
 		
 		for (Serie serie : series) {
 			ArrayList<Chapter> chapters = serie.getChapters();
@@ -301,9 +310,10 @@ public class Main {
 				
 			}
 		}
+		*/
 
-		report.setContent(contentReport);
-		//report.makeReport();
+		report.setContent(contentReport.toString());
+		report.makeReport();
 		System.out.println("Reporte Generado");
 		System.out.println();
 	}
